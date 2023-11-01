@@ -1,8 +1,13 @@
 import ImageGallery from '../../components/ImageGallery';
-import data from '../../assets/data/imagedata.json';
+
+// import data from '../../assets/data/imagedata.json';
+import { useContext } from 'react';
+import { ImageDataContext } from '../../contexts/ImageContext';
 const Home = () => {
-    
-      
+   const {imageData,selectImageChecked,deleteImage,selectCheckedData} = useContext(ImageDataContext);
+
+
+
     return (
       <>
         <div className="container mx-auto w-[1000px] mt-[40px]">
@@ -13,25 +18,30 @@ const Home = () => {
                 </span>
                     3 Files Selected
             </p>
-            <p className="text-red-500 cursor-pointer">Delete Files</p>
+            <p className="text-red-500 cursor-pointer" onClick={()=>deleteImage()}>Delete Files</p>
           </div>
           <div className='grid grid-rows-3 grid-cols-5 gap-4 pt-[20px]'>
            
              {
-                data.map((imagedata,index)=>{
+                imageData?.map((imagedata,index)=>{
                     return index === 0 ? (
-                      <div className="col-span-2 row-span-2 border-2 rounded-md relative">
+                      <div className="col-span-2 row-span-2 border-2 rounded-md relative ">
                         <span className="top-[10px] left-[10px] absolute ">
-                          <input type="checkbox" id="scales" name="scales" className='cursor-pointer'/>
+                          <input type="checkbox" id="scales" name="scales" className='cursor-pointer'
+                            checked={selectCheckedData.includes(imagedata.id)}
+                            onClick={()=>selectImageChecked(imagedata?.id)} 
+                           />
                         </span>
                         <ImageGallery key={index} imagedata={imagedata} />
                       </div>
                     ) : (
-                      <div className="border-2 rounded-md relative ">
+                      <div className="border-2 rounded-md relative cursor-pointer">
                          <span className="top-[10px] left-[10px] absolute cursor-pointer">
-                          <input type="checkbox" id="scales" name="scales" className='cursor-pointer' />
+                          <input type="checkbox" id="scales" name="scales" className='cursor-pointer'
+                          checked={selectCheckedData.includes(imagedata.id)}
+                          onClick={()=>selectImageChecked(imagedata?.id)}  />
                         </span>
-                        <ImageGallery key={index} imagedata={imagedata} />
+                        <ImageGallery key={index} imagedata={imagedata}/>
                       </div>
                     );
                 })
