@@ -11,14 +11,32 @@ const Home = () => {
     return (
       <>
         <div className="container mx-auto w-[1000px] mt-[40px]">
-          <div className="p-[10px] flex flex-row justify-between items-center py-[15px] border-b-[1px] border-gray-300">
-            <p className="">
-                <span className="me-[3px] ">
-                    <input type="checkbox" id="scales" name="scales" />
-                </span>
-                    3 Files Selected
-            </p>
-            <p className="text-red-500 cursor-pointer" onClick={()=>deleteImage()}>Delete Files</p>
+        <div className={`p-[10px] flex flex-row justify-between items-center py-[15px] ${selectCheckedData.length > 0 ? 'border-b-[1px]' : ''} border-gray-300`}>
+           {
+            selectCheckedData.length > 0 ? 
+           <>
+           
+           <p className="">
+            <span className="me-[3px] ">
+                <input type="checkbox" id="scales" name="scales" />
+            </span>
+                {/* {selectCheckedData.length
+                
+                } Files Selected */}
+                {
+                selectCheckedData.length > 0 && selectCheckedData==1 ? `${selectCheckedData.length} File Selected`  : `${selectCheckedData.length} Files Selected`
+               }
+        </p>
+        <p className="text-red-500 cursor-pointer" onClick={()=>deleteImage()}>
+
+            {
+                selectCheckedData.length > 0 && selectCheckedData==1 ?' Delete File' : 'Delete Files'
+            }
+        </p>
+           </>
+        : ''
+           }
+            
           </div>
           <div className='grid grid-rows-3 grid-cols-5 gap-4 pt-[20px]'>
            
