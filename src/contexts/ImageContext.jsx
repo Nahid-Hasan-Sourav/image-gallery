@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import data from '../assets/data/imagedata.json'
 
 export const ImageDataContext=createContext();
@@ -28,12 +28,15 @@ const ImageContext = ({children}) => {
     const deleteImage =()=>{
         const updatedImageData = imageData.filter((image) => !selectCheckedData.includes(image.id));
         setImageData(updatedImageData);
-        setSelectCheckedData([]);
+        // setSelectCheckedData([]);
+        
+        console.log("length after delete ",selectCheckedData.length)
+        console.log("length after delete ",selectCheckedData)
 
 
         // console.log("Delete Button")
     }
-
+  
     console.log("This is from context selectCheckedData", selectCheckedData);
     const allData = {
         imageData,
