@@ -7,14 +7,14 @@ export const ImageDataContext=createContext();
 const ImageContext = ({children}) => {
     const [imageData,setImageData]=useState(data);
     const [selectCheckedData, setSelectCheckedData] = useState([]);
-    const [isChecked, setIsChecked] = useState();
+    const [isChecked, setIsChecked] = useState(0);
 
   
 
     const selectImageChecked = (id) => {
  
     if (selectCheckedData.includes(id)) {
-        setIsChecked(id);
+        
         // If the ID is already stored, remove it
         setSelectCheckedData(selectCheckedData.filter((imageId) => imageId !== id));
       } else {
@@ -25,19 +25,25 @@ const ImageContext = ({children}) => {
      
     };
 
-    const deleteImage =()=>{
+   
+    const deleteImage = () => {    
         const updatedImageData = imageData.filter((image) => !selectCheckedData.includes(image.id));
         setImageData(updatedImageData);
-        // setSelectCheckedData([]);
+        setIsChecked(isChecked + 1);
+        if(selectCheckedData.length > 0){
+            setSelectCheckedData([]);
         
-        console.log("length after delete ",selectCheckedData.length)
-        console.log("length after delete ",selectCheckedData)
+        }
+      }
+      
+      useEffect(() => {
+        if (isChecked > 0) {
+          setSelectCheckedData([]);
+        
+        }
+      }, [isChecked]);
 
 
-        // console.log("Delete Button")
-    }
-  
-    console.log("This is from context selectCheckedData", selectCheckedData);
     const allData = {
         imageData,
         setImageData,
