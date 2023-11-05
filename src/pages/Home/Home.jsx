@@ -49,61 +49,61 @@ const handleDrop = (e, id) => {
 
  
   return (
- 
-    <div className="bg-blue-100 w-full h-full lg:h-screen py-8 px-4 lg:px-12 xl:px-24">
-    <div className="container mx-auto max-w-screen-lg shadow-lg rounded-md bg-white">
-      <div className="p-4 lg:p-6 flex flex-row justify-between items-center border-b border-gray-600">
-        {selectCheckedData.length == 0 ? (
-          <h1 className="text-2xl lg:text-3xl font-bold">Gallery</h1>
-        ) : (
-          <div className="flex items-center space-x-3">
-            <input type="checkbox" id="scales" className="text-xl" name="scales" checked />
-            <p className="font-bold text-xl">
-              {selectCheckedData.length > 1 ? `${selectCheckedData.length} Files Selected` : `${selectCheckedData.length} File Selected`}
-            </p>
-          </div>
-        )}
-        {selectCheckedData.length > 0 && (
-          <p className="text-red-500 cursor-pointer" onClick={() => deleteImage()}>
-            {selectCheckedData.length > 1 ? "Delete Files" : "Delete File"}
+  <div className="bg-blue-100 w-full h-[100vh] lg:h-screen flex flex-col justify-center items-center py-8 px-4 lg:px-12 xl:px-24">
+  <div className="container mx-auto max-w-screen-lg shadow-lg rounded-md bg-white">
+    <div className="p-4 lg:p-6 flex flex-row justify-between items-center border-b border-gray-600">
+      {selectCheckedData.length == 0 ? (
+        <h1 className="text-2xl lg:text-3xl font-bold">Gallery</h1>
+      ) : (
+        <div className="flex items-center space-x-3">
+          <input type="checkbox" id="scales" className="text-xl" name="scales" checked />
+          <p className="font-bold text-xl">
+            {selectCheckedData.length > 1 ? `${selectCheckedData.length} Files Selected` : `${selectCheckedData.length} File Selected`}
           </p>
-        )}
-      </div>
-      <div className="grid grid-rows-3 grid-cols-5 gap-4 p-4 lg:p-6">
-        {imageData?.map((imagedata, index) => (
-          <div
-            key={imagedata.id}
-            className={`relative border-2 rounded-md cursor-pointer hover:scale-105 ${index === 0 ? 'col-span-2 row-span-2' : ''}`}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, imagedata.id)}
-            draggable={true}
-            onDragStart={(e) => handleDragStart(e, imagedata.id)}
-            onDragEnd={() => console.log("Drag end")}
-          >
-            <div className="absolute md:top-2 md:left-2 top-[-2px] left-[1.4px]">
-              <input
-                type="checkbox"
-                id="scales"
-                name="scales"
-                className="cursor-pointer"
-                checked={selectCheckedData.includes(imagedata.id)}
-                onClick={() => selectImageChecked(imagedata?.id)}
-              />
-            </div>
-            <Image key={index} imagedata={imagedata} />
+        </div>
+      )}
+      {selectCheckedData.length > 0 && (
+        <p className="text-red-500 cursor-pointer" onClick={() => deleteImage()}>
+          {selectCheckedData.length > 1 ? "Delete Files" : "Delete File"}
+        </p>
+      )}
+    </div>
+    <div className="grid grid-rows-3 grid-cols-5 gap-4 p-4 lg:p-6">
+      {imageData?.map((imagedata, index) => (
+        <div
+          key={imagedata.id}
+          className={`relative border-2 rounded-md cursor-pointer hover:scale-105 ${index === 0 ? 'col-span-2 row-span-2' : ''}`}
+          onDragOver={handleDragOver}
+          onDrop={(e) => handleDrop(e, imagedata.id)}
+          draggable={true}
+          onDragStart={(e) => handleDragStart(e, imagedata.id)}
+          onDragEnd={() => console.log("Drag end")}
+        >
+          {/* Checkbox Div (Adjust positioning for small screens) */}
+          <div className={`absolute top-2 left-2 ${index === 0 ? 'lg:top-2 lg:left-2' : ''}`}>
+            <input
+              type="checkbox"
+              id="scales"
+              name="scales"
+              className="cursor-pointer"
+              checked={selectCheckedData.includes(imagedata.id)}
+              onClick={() => selectImageChecked(imagedata?.id)}
+            />
           </div>
-        ))}
+          <Image key={index} imagedata={imagedata} />
+        </div>
+      ))}
 
-        {/* Responsive Add Images Section */}
-        <div className="col-span-5 lg:col-span-1 p-[6px]">
-          <div className="border-2 border-dashed rounded-md flex flex-col justify-center items-center h-full">
-            <img src={addImageIcon} className="w-8 h-8 md:w-10 md:h-10" />
-            <h1 className="font-bold text-xs md:text-base lg:text-lg">Add Images</h1>
-          </div>
+      {/* Responsive Add Images Section */}
+      <div className="col-span-5 lg:col-span-1">
+        <div className="border-2 border-dashed rounded-md flex flex-col justify-center items-center h-full">
+          <img src={addImageIcon} className="w-8 h-8 md:w-10 md:h-10" />
+          <h1 className="font-bold text-xs md:text-base lg:text-lg">Add Images</h1>
         </div>
       </div>
     </div>
   </div>
+</div>
   );
 };
 
